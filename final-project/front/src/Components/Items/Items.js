@@ -17,7 +17,7 @@ class Items extends React.Component {
         }
     }
 
-   
+        
 
     onClickHandler(e) {
         e.preventDefault();
