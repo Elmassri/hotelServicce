@@ -7,30 +7,66 @@ import {
 } from "react-router-dom";
 import Items from "../Items/Items";
 import { Button } from "reactstrap";
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 class Menu extends React.Component {
           constructor(props){
             super(props);
             this.state={
                 
-                    menu:[{
-                        name:'Dribk',
-                        id:1
-                    },{name:'snacks',id:2}],
+                    menu:[],
                     
-                item:[{ name: 'mashewe', id: 1, price:5000 , qty:1 },{ name: 'sandwich', id: 2, price:7000,qty:1 }]
+                item:[],
+                error:"",
+                categories_id:0
             }
 
           }
           
+            
 
-          
+          componentDidMount = async () => {
+            
+            try {
+              const response = await fetch(`//localhost:5000/cat`);
+              const result = await response.json();
+              
+              console.log(result);
+              if (result.success) {
+                this.setState({ menu: result.result, error: "" });
+              } else {
+                this.setState({ error: result.message });
+              }
+            } catch (err) {
+              this.setState({ error: err });
+            }
+          };
+
+
+
+          HandlItem = async () => {
+            
+            try {
+              const response = await fetch(`//localhost:5000/items?categories_id=${this.state.categories_id}`);
+              const result = await response.json();
+              
+              console.log(result);
+              if (result.success) {
+                this.setState({ item: result.result, error: "" });
+              } else {
+                this.setState({ error: result.message });
+              }
+            } catch (err) {
+              this.setState({ error: err });
+            }
+          };
     render(){
 let menus=this.state.menu.map((item,index)=>{
 
-return <Link key={index} to={`/${item.id}`}><Button  onClick={(e)=>{
-    
-}}>{item.name}</Button></Link>
+return <Link key={index} to={`/${item.id}`}><Button color='primary' onClick={(e)=>{  this.HandlItem();
+
+  this.setState({categories_id:item.id});
+
+}}>{item.categories_name}</Button></Link>
 
     
 

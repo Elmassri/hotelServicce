@@ -1,14 +1,14 @@
 import React from 'react';
 import { Button } from 'reactstrap';
 import Table from '../Table/Table';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 class Items extends React.Component {
 
     constructor(props){
         super(props);
         this.state={
             
-                category: [{ name: 'mashewe', id: 1, price:5000 },],
+                
                 order: [
         
                 ],
@@ -63,7 +63,7 @@ class Items extends React.Component {
                 <div style={{display:'flex',justifyContent:'end'}}>{
                 this.props.menu.map((item, index) => {
 
-                    return <Button size='sm' className='bt-mn' key={index} value={item.name} onClick={(e) => this.onClickHandler(e)} >{item.name}</Button>
+                    return <Button color='danger' size='sm' className='bt-mn' key={index} value={item.name} onClick={(e) => this.onClickHandler(e)} >{item.name}</Button>
         
                 })
     }</div>

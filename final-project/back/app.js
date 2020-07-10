@@ -2,7 +2,7 @@
 
 initializeDatabase =require('./db') ;
 
-
+const cors=require('cors')
 const express=require('express');
 const app=express();
 
@@ -11,6 +11,7 @@ const app=express();
 
 
  
+app.use(cors());
 
 const start = async()=>{
 
@@ -90,8 +91,9 @@ const start = async()=>{
 
 
   app.get('/items', async(req, res, next)=>{
+    const {categories_id}=req.query;
     try{
-      const result = await controller.ReadItems();
+      const result = await controller.ReadItems(categories_id);
       res.json({success : true , result});
     } catch(err){
       next(err)
@@ -138,39 +140,39 @@ const start = async()=>{
 
 
 
-  app.get('/Admin', async(req, res, next)=>{
+  app.get('/user', async(req, res, next)=>{
     try{
-      const result = await controller.ReadAdmin();
+      const result = await controller.ReadUser();
       res.json({success : true , result});
     } catch(err){
       next(err)
     }
   });
 
-  app.get('/Admin/create', async(req, res, next)=>{
-    const { username , password } = req.query;
+  app.get('/user/create', async(req, res, next)=>{
+    const { username , password ,role} = req.query;
     try{
-      const result = await controller.CreateAdmin({username , password });
+      const result = await controller.CreateUser({username , password , role});
       res.json({success : true , result});
     } catch(err){
       next(err)
     } 
   });
 
-  app.get("/Admin/delete", async (req, res, next) => {
+  app.get("/user/delete", async (req, res, next) => {
     const { id } = req.query;
     try {
-      const result = await controller.DeleteAdmin(id);
+      const result = await controller.DeleteUser(id);
       res.json({ success: true, result });
     } catch (err) {
       next(err);
     }
   });
 
-  app.get("/Admin/update", async (req, res, next) => {
-    const { id, username, password } = req.query;
+  app.get("/user/update", async (req, res, next) => {
+    const { id, username, password ,role,room_id} = req.query;
     try {
-      const result = await controller.UpdateAdmin(id, { username, password });
+      const result = await controller.UpdateUser(id, { username, password,role,room_id });
       res.json({ success: true, result });
     } catch (err) {
       next(err);
@@ -266,7 +268,6 @@ const start = async()=>{
       next(err);
     }
   });
-
 
 
 

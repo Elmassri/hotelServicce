@@ -10,7 +10,7 @@ const initializeDatabase = async () => {
     }
     catch(err)
     {
-      console.log(err)
+      console.log(err)  
     }
   const CheckUser=async (props)=>{
     const { username, password } = props; 
@@ -179,9 +179,9 @@ const initializeDatabase = async () => {
   };
 
   const CreateUser = async (props) => {
-    const { username, password,role } = props
+    const { username, password,role, room_id } = props
 
-    if (!props || !username || !password||!role || !room_id) {
+    if (!props || !username || !password||!role) {
       throw new Error(`You must provide an username and password`);
     }
     try {
@@ -213,38 +213,38 @@ const initializeDatabase = async () => {
 
     let stmt = "";
     if (username && password && role && room_id) {
-      stmt = `update user set room_id='${room_id}', username = '${username}', password = '${password}',role='${role}' where ID = ${id} `;
+      stmt = `update user set room_id='${room_id}', username = '${username}', password = '${password}',role='${role}' where id = ${id} `;
       console.log(stmt);
     } else if (username && !password && !role && !room_id) {
-      stmt = `update user set username = '${username}' where ID = ${id} `;
+      stmt = `update user set username = '${username}' where id = ${id} `;
     } else if(password && !username && !role && !room_id) {
-      stmt = `update user set  password = '${password}' where ID = ${id} `;
+      stmt = `update user set  password = '${password}' where id = ${id} `;
     }else if(role && !username && !password && !room_id){
-        stmt=`update role set  role = '${role}' where ID = ${id}`
+        stmt=`update role set  role = '${role}' where id = ${id}`
     }else if(room_id&& !username && !password && !role){
-        stmt=`update role set  room_id = '${room_id}' where ID = ${id}`
+        stmt=`update role set  room_id = '${room_id}' where id = ${id}`
     }
     
     else if((username && password && room_id)&& !role){
-        stmt=`update user set room_id='${room_id}',  username ='${username}',password= '${password}' where ID = ${id}`
+        stmt=`update user set room_id='${room_id}',  username ='${username}',password= '${password}' where id = ${id}`
     }else if((username && role && room_id) && !password){
-        stmt=`update user set room_id='${room_id}', username ='${username}',role= '${role}' where ID = ${id}`
+        stmt=`update user set room_id='${room_id}', username ='${username}',role= '${role}' where id = ${id}`
 
     }else if((password && role && room_id)&& !username){
-        stmt=`update user set room_id='${room_id}' , role ='${role}',password= '${password}' where ID = ${id}`
+        stmt=`update user set room_id='${room_id}' , role ='${role}',password= '${password}' where id = ${id}`
 
     }else if((password && username)&& !role && !room_id){
-        stmt=`update user set username='${username}' ,password= '${password}' where ID = ${id}`
+        stmt=`update user set username='${username}' ,password= '${password}' where id = ${id}`
     }else if((role && username)&& !password && !room_id){
-        stmt=`update user set role='${role}' ,password= '${password}' where ID = ${id}`
+        stmt=`update user set role='${role}' ,password= '${password}' where id = ${id}`
     }else if((password && room_id)&& !role && !username){
-        stmt=`update user set room_id='${room_id}' ,password= '${password}' where ID = ${id}`
+        stmt=`update user set room_id='${room_id}' ,password= '${password}' where id = ${id}`
     }else if((room_id && username)&& !role && !password){
-        stmt=`update user set room_id='${room_id}' ,username= '${username}' where ID = ${id}`
+        stmt=`update user set room_id='${room_id}' ,username= '${username}' where id = ${id}`
     }else if((role && username)&& !password && !room_id){
-        stmt=`update user set role='${role}' ,username= '${username}' where ID = ${id}`
+        stmt=`update user set role='${role}' ,username= '${username}' where id = ${id}`
     }else if((room_id && role)&& !password && !username){
-        stmt=`update user set room_id='${room_id}' ,role= '${role}' where ID = ${id}`
+        stmt=`update user set room_id='${room_id}' ,role= '${role}' where id= ${id}`
     }
     try {
       const result = await db.run(stmt);
@@ -269,9 +269,11 @@ const initializeDatabase = async () => {
 
 
 
-  const ReadItems = async () => {
+  const ReadItems = async (props) => {
+    const categories_id=props
     try {
-      const rows = await db.all(`SELECT * FROM items INNER JOIN categories WHERE items.categories_id=categories.id`);
+      const rows = await db.all(`SELECT * FROM items  INNER JOIN categories ON items.categories_id=categories.id WHERE categories_id=${categories_id}`);
+      
       if (rows.length == 0) {
         throw new Error("items are empty!");
       }
