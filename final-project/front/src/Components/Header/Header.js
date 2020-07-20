@@ -4,15 +4,18 @@ import AAA from '../../images/—Pngtree—fast food seamless background with_50
 
 
 import './Header.css'
-
+import { Button } from '@material-ui/core'
 export default function Header (props){
 
 
 
     return (
         <div className='headi'>
-                    <h3 style={{position:'relative',left:'0px',top:'0px',color:'black'}}>Welcome Mr.User</h3>
-{/*                     <img src={AAA} />
- */}        </div>
+                    
+                    <Button variant="contained" color="secondary">
+        Logout
+      </Button>
+      <h3 style={{position:'relative',left:'0px',top:'0px',color:'black'}}>Welcome Mr.User</h3>
+      </div>
     )
 }

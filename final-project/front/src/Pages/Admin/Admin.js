@@ -4,6 +4,8 @@ import Header from '../../Components/Header/Header'
 import AddCat from '../../Components/AddCat/AddCat'
 import AddItem from '../../Components/AddItem/AddItem'
 import './Admin.css'
+import { Link, Button, Switch } from '@material-ui/core'
+import { Router, Route } from 'react-router-dom'
 class Admin extends React.Component{
 
         constructor(props){
@@ -49,14 +51,16 @@ class Admin extends React.Component{
         return(
                 <div>
                     <Header></Header>
-                    <hr></hr>
+                    <div className='AdminB'>
                         <Menu></Menu>
-                        <hr></hr>
-                        <AddCat categories={this.state.ListCat}></AddCat>
-                        <hr></hr>
-                        <AddItem items={this.state.ListItem}></AddItem>
+                        
+                       <div className='AdminA'>
+                         
+                          <AddCat  categories={this.state.ListCat}></AddCat>
+                        
+                        <AddItem items={this.state.ListItem}></AddItem></div>
                 </div> 
-            
+                </div>
             )
     }
 

@@ -54,7 +54,7 @@ class Menu extends React.Component {
         <Link  key={index} to={`/${item.id}`}>
           <Button
 
-            style={{marginRight:'5px',marginBottom:'0px'}} 
+            style={{marginRight:'5px',marginBottom:'10px'}} 
             color="primary"
             onClick={(e) => {
               this.HandlItem(item.id);
@@ -70,11 +70,12 @@ class Menu extends React.Component {
     return (
       <Router>
         <div  >
-          <ul style={{display:'flex',justifyContent:'space-between',width:'400px'}}>{menus}</ul>
+          <ul style={{display:'flex',marginRight:'10px',width:'700px',flexWrap:'wrap'}}>{menus}</ul>
 
           {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
           <Switch>
+           
             <Route path={`/`}>
               <Items menu={this.state.item} />
             </Route>

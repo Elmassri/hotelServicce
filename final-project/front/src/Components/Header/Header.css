@@ -1,9 +1,7 @@
 
-img{
-    position: relative;
-    width: 50%;
-    
-    max-height: 200px;
-    
-    
+.headi{
+    display: flex;
+    justify-content:space-between;
+    width: 600px;
+    margin: 20px;
 }
