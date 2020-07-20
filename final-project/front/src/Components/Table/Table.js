@@ -6,7 +6,8 @@ import Input from '../test/Input'
 
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import { Button } from 'reactstrap';
+import './Table.css'
 
 export default class TableForm extends React.Component{
 
@@ -18,6 +19,29 @@ export default class TableForm extends React.Component{
     }
 
   }
+  OrderCreate = async () => {
+    try {
+      for(let i=0;i<this.props.orders.length;i++){
+      const response = await fetch(`//localhost:5000/list/create?item_name=${this.props.orders[i].name}&orders_id=1`);
+      const result = await response.json();
+      console.log(result);
+
+      if (result.success) {
+       
+      
+      } else {
+        this.setState({ error: result.message });
+        alert('error')
+      }
+      }
+      
+      alert('done')
+      
+    } catch (err) {
+      this.setState({ error: err });
+    }
+  };
+  
   render()
 
 
@@ -40,7 +64,7 @@ export default class TableForm extends React.Component{
            {/*  <th>#</th> */}
            <th>Order Name</th>
             <th>Order price</th>
-            <th>Quantity</th>
+            <th></th>
             
             
           </tr>
@@ -51,8 +75,8 @@ export default class TableForm extends React.Component{
             return <tr key={index}>
                 <td>{item.name}</td>
                 <td>{item.price}</td>
-                  <td><Input item={item} updateOrderQuantity={this.props.updateOrderQuantity}></Input></td>
-              
+                  
+                <td><Button type='delete' color='danger'>delete</Button></td>
               
             </tr>;
           }
@@ -62,12 +86,14 @@ export default class TableForm extends React.Component{
         </tbody>
        <tfoot>
            <tr>
-               <td>Total</td>
-               <td>{this.props.totalPrice}</td>
+               
            </tr>
        </tfoot>
+       
       </Table>
-      
+      <h5>Total:</h5>
+               <h5>{this.props.totalPrice}</h5>
+               <Button  color='success' onClick={this.OrderCreate}>order</Button>
       </div>
   );
 }}

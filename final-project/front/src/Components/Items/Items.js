@@ -1,7 +1,8 @@
 import React from 'react';
-import { Button } from 'reactstrap';
-import Table from '../Table/Table';
+import { Button,Table } from 'reactstrap';
+import TableForm from '../Table/Table';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './Item.css'
 class Items extends React.Component {
 
     constructor(props){
@@ -12,8 +13,8 @@ class Items extends React.Component {
                 order: [
         
                 ],
-                totalPrice:0
-            
+                totalPrice:0,
+                
         }
     }
 
@@ -31,7 +32,7 @@ class Items extends React.Component {
     
     updateTotalPrice = () => {
         const totalPrice = this.state.order.reduce(function(prev, cur) {
-          return prev + cur.price * cur.quantity;
+          return prev + cur.price ;
         }, 0);
         console.log(totalPrice);
         this.setState({ totalPrice });
@@ -41,16 +42,17 @@ class Items extends React.Component {
         const newOrders = this.state.order.map(order => {
           if (order.id === id)
             return {
-              id: order.id,
+
+              id: id,
               name: order.name,
               quantity: qty,
               price: order.price
             };
           else return order;
         });
-        //const totalPrice = this.updateTotalPrice();
-        // console.log(totalPrice);
-        this.setState({ order: newOrders }, () => this.updateTotalPrice());
+       /*  //const totalPrice = this.updateTotalPrice();
+        // console.log(totalPrice); */
+        this.setState({ order: newOrders,qty:this.state.order.quantity}, () => this.updateTotalPrice());
       };
 
 
@@ -59,19 +61,37 @@ class Items extends React.Component {
         
        
         return (
-            <div>
-                <div style={{display:'flex',justifyContent:'end'}}>{
+            <div className='item'>
+                <Table>
+                <thead>
+          <tr>
+           
+           <th>Item Name</th>
+            <th>Unit Price</th>
+            <th></th>
+            
+            
+          </tr>
+        </thead>
+        <tbody>
+                  {
                 this.props.menu.map((item, index) => {
-
-                    return <Button color='danger' size='sm' className='bt-mn' key={index} value={item.name} onClick={(e) => this.onClickHandler(e)} >{item.name}</Button>
-        
+                      
+                return<tr key={item.index}>
+                      <td>{item.name}</td>
+                     <td>{item.price}</td>
+                      
+                    <td><Button color='danger' size='lr'  className='bt-mn' key={index} value={item.name} onClick={(e) => this.onClickHandler(e)} >ADD</Button></td>
+                    </tr>
                 })
-    }</div>
+    }
+    </tbody>
+    </Table>
                 
-                <div style={{maxWidth:'300px'}}>
-                    <h5>order</h5>
-                     <Table orders={this.state.order}
-          updateOrderQuantity={this.updateOrderQuantity} totalPrice={this.state.totalPrice} />
+                <div className='orderT' >
+                    <h5 style={{color:'black'}} >order</h5>
+                     <TableForm style={{width:'200px'}} orders={this.state.order} 
+          updateOrderQuantity={this.updateOrderQuantity} totalPrice={this.state.totalPrice} qty={this.state.qty} />
 </div>
             </div>
         )

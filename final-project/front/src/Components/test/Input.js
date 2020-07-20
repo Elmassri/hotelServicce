@@ -15,9 +15,7 @@ export default class Input extends React.Component {
          
         <input
           style={{maxWidth:"70px"}}
-          type="number"
-          defaultValue="1"
-          min="1"
+          type='text'
           value={this.state.quantity}
           onChange={this.handleChange}
         />

@@ -282,6 +282,19 @@ const initializeDatabase = async () => {
       throw new Error("Could not retrieve any item");
     }
   };
+  const ReadAllItems = async () => {
+    
+    try {
+      const rows = await db.all(`SELECT * FROM items  INNER JOIN categories ON items.categories_id=categories.id`);
+      
+      if (rows.length == 0) {
+        throw new Error("items are empty!");
+      }
+      return rows;
+    } catch (err) {
+      throw new Error("Could not retrieve any item");
+    }
+  };
 
   const CreateItems = async (props) => {
     const { name,price,categories_id } = props
@@ -342,12 +355,66 @@ const initializeDatabase = async () => {
   };
   
 
+  const ReadOrders = async (props) => {
+    
+    try {
+      const rows = await db.all(`SELECT * FROM orders`);
+      
+      if (rows.length == 0) {
+        throw new Error("items are empty!");
+      }
+      return rows;
+    } catch (err) {
+      throw new Error("Could not retrieve any item");
+    }
+  };
+
+  const CreateOrders = async (props) => {
+    const { total,user_id } = props
+
+    if (!props || !total|| !user_id ) {
+      throw new Error(`You must provide a name`);
+    }
+    try {
+      const result = await db.run(`INSERT INTO orders (total,user_id) VALUES ( '${total}', '${user_id}')`);
+      /* const id = result.stmt.lastID
+      return id */
+    } catch (err) {
+      
+      throw new Error("This combination doesnt work");
+    }
+  };
 
 
+  const CreateList = async (props) => {
+    const { item_name,orders_id } = props
 
+    if (!props || !item_name|| !orders_id ) {
+      throw new Error(`You must provide a name`);
+    }
+    try {
+      const result = await db.run(`INSERT INTO list (item_name,orders_id) VALUES ( '${item_name}', '${orders_id}')`);
+      /* const id = result.stmt.lastID
+      return id */
+    } catch (err) {
+      
+      throw new Error("This combination doesnt work");
+    }
+  };
 
-
-
+  const ReadList = async (props) => {
+    const order_id=props
+    try {
+      const rows = await db.all(`SELECT * FROM item-list  INNER JOIN orders ON items-list.order_id=orders.id WHERE order_id=${order_id}`);
+      
+      if (rows.length == 0) {
+        throw new Error("items are empty!");
+      }
+      return rows;
+    } catch (err) {
+      throw new Error("Could not retrieve any item");
+    }
+  };
 
 
   
@@ -380,10 +447,11 @@ const initializeDatabase = async () => {
     DeleteItems,
     UpdateItems,
 
-
-    
-
-    CheckUser
+    ReadOrders,
+    CreateOrders,
+    CreateList,ReadList,
+    CheckUser,
+    ReadAllItems
 
 
   }

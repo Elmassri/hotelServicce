@@ -40,11 +40,27 @@ const start = async()=>{
   });
 
 
-  
+  app.get('/order/create', async(req, res, next)=>{
+    const { total,user_id  } = req.query;
+    try{
+      const result = await controller.CreateOrders({total,user_id });
+      res.json({success : true , result});
+    } catch(err){
+      next(err)
+    } 
+  });
 
 
 
-
+  app.get('/orders', async(req, res, next)=>{
+    try{
+      const result = await controller.ReadOrders();
+      res.json({success : true , result});
+      console.log("retriving")
+    } catch(err){
+      next(err)
+    }
+  });
 
     
 
@@ -100,6 +116,17 @@ const start = async()=>{
     }
   });
 
+
+  app.get('/itemsAll', async(req, res, next)=>{
+    
+    try{
+      const result = await controller.ReadAllItems();
+      res.json({success : true , result});
+    } catch(err){
+      next(err)
+    }
+  });
+
   app.get('/items/create', async(req, res, next)=>{
     const { name,price,categories_id } = req.query;
     try{
@@ -131,9 +158,25 @@ const start = async()=>{
   });
 
 
+  app.get('/list', async(req, res, next)=>{
+    const {order_id}=req.query;
+    try{
+      const result = await controller.ReadList(order_id);
+      res.json({success : true , result});
+    } catch(err){
+      next(err)
+    }
+  });
 
-
-
+  app.get('/list/create', async(req, res, next)=>{
+    const { item_name,orders_id } = req.query;
+    try{
+      const result = await controller.CreateList({item_name,orders_id });
+      res.json({success : true , result});
+    } catch(err){
+      next(err)
+    } 
+  });
 
 
 
@@ -229,45 +272,6 @@ const start = async()=>{
 
 
 
-  app.get('/Product', async(req, res, next)=>{
-    try{
-      const result = await controller.ReadProduct();
-      res.json({success : true , result});
-    } catch(err){
-      next(err)
-    }
-  });
-
-  app.get('/Product/create', async(req, res, next)=>{
-    const { typename } = req.query;
-    try{
-      const result = await controller.CreateProduct({typename});
-      res.json({success : true , result});
-    } catch(err){
-      next(err)
-    } 
-  });
-
-  app.get("/Product/delete", async (req, res, next) => {
-    const { id } = req.query;
-    try {
-      const result = await controller.DeleteProduct(id);
-      res.json({ success: true, result });
-    } catch (err) {
-     // console.log(err)
-      next(err);
-    }
-  });
-
-  app.get("/Product/update", async (req, res, next) => {
-    const { id, typename} = req.query;
-    try {
-      const result = await controller.UpdateProduct(id, { typename});
-      res.json({ success: true, result });
-    } catch (err) {
-      next(err);
-    }
-  });
 
 
 

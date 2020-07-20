@@ -1,0 +1,12 @@
+.item{
+    margin: auto;
+    max-width: 100%;
+    display: grid;
+grid-template-columns: 70% 30%;
+}
+.orderT{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 300px;
+}
