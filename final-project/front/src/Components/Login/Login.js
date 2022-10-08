@@ -12,36 +12,49 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import '../Login/Login.css'
+import { red } from '@material-ui/core/colors';
+
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-		Mahmoud ElMassri
+    <Typography variant="body2" color="textSecondary" margin-left="500px">
+     
+      <Link class="s1" href="https://material-ui.com/">
+		
       </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
+      
     </Typography>
   );
 }
 
+
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
+     backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+      color : 'white',
+    
+marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    
+    
   },
   avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: 'rgb(0,64,128)',
+    
   },
   form: {
+    color:'rgb(0,64,128)',
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    color:'white',
+    background: '',
+   
   },
 }));
 
@@ -53,33 +66,37 @@ export default function SignIn(props) {
 
 
   return (
-    <Container component="main" maxWidth="xs">
+    <div className='bodyLogin'>
+<div className='image'>
+
+  </div>      
+      <Container className='body1' component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon/>
         </Avatar>
-        <Typography component="h1" variant="h5"  >
+        <Typography class="s2" component="h1" variant="h5"  >
           Login
         </Typography>
         <form className={classes.form} noValidate   >
 
-        
-          <TextField
+            
+          <TextField class="s3"
             onChange={(event)=>{
               setEmail(event.target.value)
             }}
             variant="outlined"
             margin="normal"
+            placeholder=' Enter Username'
             required
             fullWidth
             id="email"
-            label="Email Address"
             name="email"
             autoComplete="email"
             autoFocus
           />
-          <TextField
+          <TextField class="s4"
           onChange={(event)=>{
             setPass(event.target.value)
           }}
@@ -87,22 +104,25 @@ export default function SignIn(props) {
             margin="normal"
             required
             fullWidth
+            placeholder='Password'
             name="password"
-            label="Password"
             type="password"
             id="password"
             autoComplete="current-password"
+           
           />
           
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
+          <FormControlLabel className='s6'
+            control={<Checkbox class="s7" value="remember"  />}
             label="Remember me"
+           
           />
-          <Button
+          <Button 
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
+            
             className={classes.submit}
           >
             Login
@@ -114,5 +134,7 @@ export default function SignIn(props) {
         <Copyright />
       </Box>
     </Container>
+    </div>
+    
   );
 }

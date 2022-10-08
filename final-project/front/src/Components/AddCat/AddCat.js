@@ -7,7 +7,7 @@ export default function MaterialTableDemo(props) {
     columns: [
       
       
-      { title: 'ID', field: 'id' },
+      {  title: 'ID', field: 'id' },
       
       { title: 'Name', field: 'categories_name' },
       
@@ -19,8 +19,10 @@ export default function MaterialTableDemo(props) {
   });
 
   return (
+   
     <MaterialTable
-      title="Categories "
+    
+      title="Categories " 
       columns={state.columns}
       data={props.categories}
       editable={{
@@ -35,6 +37,7 @@ export default function MaterialTableDemo(props) {
               });
             }, 600);
           }),
+      
         onRowUpdate: (newData, oldData) =>
           new Promise((resolve) => {
             setTimeout(() => {
@@ -61,5 +64,6 @@ export default function MaterialTableDemo(props) {
           }),
       }}
     />
+   
   );
 }

@@ -49,17 +49,19 @@ class Admin extends React.Component{
           
     render(){
         return(
-                <div>
+                 
+                <div className='aa'>
                     <Header></Header>
                     <div className='AdminB'>
                         <Menu></Menu>
-                        
+                        <div className='abc'></div>
                        <div className='AdminA'>
                          
-                          <AddCat  categories={this.state.ListCat}></AddCat>
+                          <AddCat categories={this.state.ListCat}></AddCat>
                         
                         <AddItem items={this.state.ListItem}></AddItem></div>
-                </div> 
+                
+                </div>
                 </div>
             )
     }

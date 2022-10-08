@@ -3,6 +3,10 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Items from "../Items/Items";
 import { Button } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import  "./Menu.css"
+
+
+
 class Menu extends React.Component {
   constructor(props) {
     super(props);
@@ -52,10 +56,11 @@ class Menu extends React.Component {
     let menus = this.state.menu.map((item, index) => {
       return (
         <Link  key={index} to={`/${item.id}`}>
-          <Button
+          <Button 
 
             style={{marginRight:'5px',marginBottom:'10px'}} 
             color="primary"
+            
             onClick={(e) => {
               this.HandlItem(item.id);
 
@@ -69,15 +74,16 @@ class Menu extends React.Component {
     });
     return (
       <Router>
-        <div  >
+        <div >
           <ul style={{display:'flex',marginRight:'10px',width:'700px',flexWrap:'wrap'}}>{menus}</ul>
 
           {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
           <Switch>
            
+           
             <Route path={`/`}>
-              <Items menu={this.state.item} />
+              <Items  menu={this.state.item} />
             </Route>
           </Switch>
         </div>
@@ -85,5 +91,7 @@ class Menu extends React.Component {
     );
   }
 }
+
+
 
 export default Menu;

@@ -54,14 +54,22 @@ class Items extends React.Component {
         // console.log(totalPrice); */
         this.setState({ order: newOrders,qty:this.state.order.quantity}, () => this.updateTotalPrice());
       };
-
+            
+             
 
 
     render() {
         
        
+       
+       
+       
         return (
+         
+
+
             <div className='item'>
+               
                 <Table>
                 <thead>
           <tr>
@@ -73,7 +81,8 @@ class Items extends React.Component {
             
           </tr>
         </thead>
-        <tbody>
+        
+        <tbody className='tt1'>
                   {
                 this.props.menu.map((item, index) => {
                       
@@ -87,14 +96,20 @@ class Items extends React.Component {
     }
     </tbody>
     </Table>
+           <div className='image2'>
+
+           </div>
                 
                 <div className='orderT' >
-                    <h5 style={{color:'black'}} >order</h5>
+                    <h5 style={{color:'black'}} >Order</h5>
                      <TableForm style={{width:'200px'}} orders={this.state.order} 
           updateOrderQuantity={this.updateOrderQuantity} totalPrice={this.state.totalPrice} qty={this.state.qty} />
 </div>
             </div>
+            
         )
     }
+    
 }
+
 export default Items;

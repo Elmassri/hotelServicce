@@ -11,7 +11,7 @@ export default function MaterialTableDemo(props) {
       
       { title: 'Name', field: 'name' },
 
-      { title: 'Category', field: 'categories_name' },
+      {  title: 'Category', field: 'categories_name' },
       { title: 'Price', field: 'price' },
 
       

@@ -1,8 +1,25 @@
 .AdminB{
-    max-width: 80%;
-    margin: auto;
+    max-width: 80%;  
     margin-left: 200px;
+    background-color: rgb(211, 211, 211);
+    
 }
+
+
 .AdminA{
-    width: 900px;
+    background-color: rgb(211, 211, 211);
+    width: 800px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    box-shadow: 4px 4px 4px 4px grey;
+   
+   
 }
+
+div{
+    background-color: rgb(211, 211, 211);
+    
+    
+}
+
+

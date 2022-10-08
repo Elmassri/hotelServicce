@@ -1,12 +1,32 @@
 .item{
+    box-shadow: 5px 2px 20px black;;
     margin: auto;
     max-width: 100%;
     display: grid;
-grid-template-columns: 70% 30%;
+    grid-template-columns: 70% 30%;
+    background-color:rgb(212, 211, 211);
+    
 }
 .orderT{
+    box-shadow: 5px 2px 20px black;
     position: absolute;
     right: 10px;
-    top: 10px;
+    top: 400px;
     width: 300px;
+    background-color:rgb(212, 211, 211);
+}
+.image2{
+   background-image: url(../../images/11.jpg);    
+   background-repeat: no-repeat;
+   background-size: 100%;
+   background-position: center;
+   background-color: rgb(212, 211, 211);
+}
+
+h5{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+}
+body{
+    background-color: rgb(212, 211, 211);
 }
