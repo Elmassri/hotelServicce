@@ -1,2 +1,28 @@
+.navItems{
+    display:flex ;
+    justify-items: flex-start;
+    flex-wrap: nowrap;
+}
 
-
+.catTab{
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    
+    width: 100%;
+    justify-content: center;
+    align-content: center;
+    background-color: rgb(0,64, 128);
+    
+}
+#li{
+    color: white;
+    font-weight: bold;
+}
+#li:hover{
+    background-color: rgb(6, 114, 221)
+}
+.mainBody{
+    display: grid;
+    grid-template-columns: 70% 30%;
+}

@@ -14,6 +14,7 @@ class Items extends React.Component {
         
                 ],
                 totalPrice:0,
+                totalItem : 0
                 
         }
     }
@@ -25,8 +26,10 @@ class Items extends React.Component {
         const categories = [...this.props.menu];
         let item = categories.find(item => item.name === e.target.value);
         let index = categories.indexOf(item);
-        
-        this.setState({order:[...this.state.order, categories[index]],totalPrice:this.state.totalPrice+item.price});
+        if(this.state.order.name === item.name){
+          this.setState({totalItem:this.state.totalItem + 1})
+        }
+        this.setState({order:[...this.state.order, categories[index]],totalPrice:this.state.totalPrice+item.price });
 
     }
     
@@ -68,48 +71,26 @@ class Items extends React.Component {
          
 
 
-            <div className='item'>
-               
-                <Table>
-                <thead>
-          <tr>
-           
-           <th>Item Name</th>
-            <th>Unit Price</th>
-            <th></th>
-            
-            
-          </tr>
-        </thead>
+           <div className='itemDisplay'>
+
         
-        <tbody className='tt1'>
+        
                   {
                 this.props.menu.map((item, index) => {
                       
-                return<tr key={item.index}>
-                      <td>{item.name}</td>
-                     <td>{item.price}</td>
-                      
-                    <td><Button color='danger' size='lr'  className='bt-mn' key={index} value={item.name} onClick={(e) => this.onClickHandler(e)} >ADD</Button></td>
-                    </tr>
+                return<div className='items' key={index} value={item.name} onClick={(e) => this.onClickHandler(e)}>
+                      <img className='imgItem' src="https://toppng.com/uploads/preview/pepsi-11528331449u5hyzmfwnd.png"/>
+                      <h6 className='itemName'>{item.name}</h6>
+                     <h6 className='itemName'>{item.price}</h6>
+                     
+                    
+                    </div>
                 })
     }
-    </tbody>
-    </Table>
-           <div className='image2'>
-
-           </div>
-                
-                <div className='orderT' >
-                    <h5 style={{color:'black'}} >Order</h5>
-                     <TableForm style={{width:'200px'}} orders={this.state.order} 
-          updateOrderQuantity={this.updateOrderQuantity} totalPrice={this.state.totalPrice} qty={this.state.qty} />
-</div>
-            </div>
-            
+    </div>
         )
-    }
+      }
+      }
     
-}
 
 export default Items;

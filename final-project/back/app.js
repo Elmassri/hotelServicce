@@ -1,6 +1,6 @@
 
 
-initializeDatabase =require('./db') ;
+initializeDatabase = require('./db') ;
 
 const cors=require('cors')
 const express=require('express');
@@ -128,9 +128,10 @@ const start = async()=>{
   });
 
   app.get('/items/create', async(req, res, next)=>{
-    const { name,price,categories_id } = req.query;
+    const { name,categories_id,price } = req.query;
+    console.log({name,categories_id,price})
     try{
-      const result = await controller.CreateItems({name,price,categories_id });
+      const result = await controller.CreateItems({name,categories_id,price});
       res.json({success : true , result});
     } catch(err){
       next(err)
@@ -148,9 +149,9 @@ const start = async()=>{
   });
 
   app.get("/items/update", async (req, res, next) => {
-    const { id,name } = req.query;
+    const { id,name,categories_id,price } = req.query;
     try {
-      const result = await controller.UpdateItems(id, { name,price });
+      const result = await controller.UpdateItems(id, { id,name,categories_id,price });
       res.json({ success: true, result }); 
     } catch (err) {
       next(err);

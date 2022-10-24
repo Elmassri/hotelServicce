@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, {useState} from 'react';
 import MaterialTable from 'material-table';
 
 export default function MaterialTableDemo(props) {
@@ -21,49 +21,64 @@ export default function MaterialTableDemo(props) {
     
     
   });
-
+  const [data, setData] = useState([]);
   return (
-    <MaterialTable
-      title="Items"
-      columns={state.columns}
-      data={props.items}
-      editable={{
-        onRowAdd: (newData) =>
-          new Promise((resolve) => {
-            setTimeout(() => {
-              resolve();
-              setState((prevState) => {
-                const data = [...prevState.data];
-                data.push(newData);
-                return { ...prevState, data };
-              });
-            }, 600);
-          }),
-        onRowUpdate: (newData, oldData) =>
-          new Promise((resolve) => {
-            setTimeout(() => {
-              resolve();
-              if (oldData) {
-                setState((prevState) => {
-                  const data = [...prevState.data];
-                  data[data.indexOf(oldData)] = newData;
-                  return { ...prevState, data };
-                });
-              }
-            }, 600);
-          }),
-        onRowDelete: (oldData) =>
-          new Promise((resolve) => {
-            setTimeout(() => {
-              resolve();
-              setState((prevState) => {
-                const data = [...prevState.data];
-                data.splice(data.indexOf(oldData), 1);
-                return { ...prevState, data };
-              });
-            }, 600);
-          }),
-      }}
-    />
+      <MaterialTable
+          style={{height:'100%'}}
+          options={{
+            
+            headerStyle: {
+              backgroundColor: 'rgb(211,211,211)',
+              color: 'red',
+              fontWeight : 'bold',
+
+            },
+            rowStyle:{
+              backgroundColor: 'rgb(211,211,211)',
+
+            }
+          }}
+          title="Items "
+          columns={state.columns}
+          data= {props.items}
+          editable={{
+
+            onRowAdd: (newData) =>
+
+
+                new Promise((resolve)   => {
+                  setData([...data,props.categories])
+                  console.log("newData =" + newData.categories_name)
+                  setTimeout(() => {
+
+                    props.onAdd(newData.name,newData.categories_name,newData.price)
+                    window.location.reload(false);
+                    resolve();
+                  }, 600);
+
+
+                }),
+
+            onRowUpdate: (newData, oldData) =>
+                new Promise((resolve) => {
+                  setTimeout(() => {
+                    resolve();
+                    props.onUpdate(oldData.id,newData.categories_name,newData.price)
+                    window.location.reload(false);
+                  }, 600);
+                }),
+            onRowDelete: (oldData) =>
+                new Promise((resolve) => {
+                  setTimeout(() => {
+                    props.onDelete(oldData.item_id)
+                    window.location.reload(false);
+
+                    resolve();
+
+                    ;
+                  }, 600);
+                }),
+          }}
+      />
   );
 }

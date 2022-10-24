@@ -298,7 +298,7 @@ const initializeDatabase = async () => {
 
   const CreateItems = async (props) => {
     const { name,price,categories_id } = props
-
+  console.log(props)
     if (!props || !name || !price || !categories_id ) {
       throw new Error(`You must provide a name`);
     }
@@ -314,7 +314,7 @@ const initializeDatabase = async () => {
 
   const DeleteItems = async (id) => {
     try {
-      const result = await db.run(`DELETE FROM items WHERE id = ${id}`);
+      const result = await db.run(`DELETE FROM items WHERE item_id = ${id}`);
       if (result.stmt.changes === 0) {
         throw new Error(`item with id ${id} doesn't exist`);
       }
@@ -325,14 +325,14 @@ const initializeDatabase = async () => {
   };
 
   const UpdateItems = async (id, props) => {
-    const { name,price } = props;
+    const { name,categories_id,price } = props;
     if (!props && !name && !price) {
       throw new Error(`You must provide a name or price`);
     }
 
     let stmt = "";
      if(name && price){
-      stmt = `update items set name = '${name}', price = '${price}' where id = ${id} `;
+      stmt = `update items set name = '${name}', price = '${price}' where item_id = ${id} `;
      }
       
       else if(name && !price){

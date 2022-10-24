@@ -4,15 +4,16 @@ import Items from "../Items/Items";
 import { Button } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import  "./Menu.css"
-
-
-
+import Tabs from "../../Components/Tabs/Tabs"
+import classnames from 'classnames';
+import { TabContent, TabPane, Nav, NavItem, NavLink, Card, CardTitle, CardText, Row, Col } from 'reactstrap';
+import TableForm from "../Table/Table";
 class Menu extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       menu: [],
-
+      activeTab: '5',
       item: [],
       error: "",
       categories_id: 0,
@@ -34,7 +35,13 @@ class Menu extends React.Component {
       this.setState({ error: err });
     }
   };
-
+  toggle(tab) {
+    if (this.state.activeTab !== tab) {
+      this.setState({
+        activeTab: tab
+      });
+    }
+  }
   HandlItem = async (id) => {
     try {
       const response = await fetch(
@@ -55,39 +62,50 @@ class Menu extends React.Component {
   render() {
     let menus = this.state.menu.map((item, index) => {
       return (
-        <Link  key={index} to={`/${item.id}`}>
-          <Button 
-
-            style={{marginRight:'5px',marginBottom:'10px'}} 
-            color="primary"
+          
+          <Nav tabs key={index} to={`/${item.id}`} >
             
-            onClick={(e) => {
-              this.HandlItem(item.id);
-
-             // this.setState({ categories_id: item.id });
-            }}
-          >
-            {item.categories_name}
-          </Button>
-        </Link>
+          <NavItem className='navItems'>
+            <NavLink
+              id="li"
+              className={classnames({ active: this.state.activeTab === item.id })}
+              onClick={(e) => {
+                this.HandlItem(item.id);
+                this.render(item.id)
+               // this.setState({ categories_id: item.id });
+              }}
+            >
+              {item.categories_name}
+            </NavLink>
+          </NavItem>
+          </Nav>
+          
+        
       );
     });
     return (
-      <Router>
-        <div >
-          <ul style={{display:'flex',marginRight:'10px',width:'700px',flexWrap:'wrap'}}>{menus}</ul>
+      <div  >
+      <Router >
+        
+        <div className="itemAndCategory">
+          <ul className="catTab">{menus}</ul>
 
-          {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
+         <div className="mainBody">
           <Switch>
            
            
             <Route path={`/`}>
               <Items  menu={this.state.item} />
             </Route>
+            
           </Switch>
+          <TableForm orders={[]}></TableForm>
+          </div>
         </div>
+        
       </Router>
+      
+      </div>
     );
   }
 }

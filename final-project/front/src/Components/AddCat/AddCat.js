@@ -1,69 +1,78 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import MaterialTable from 'material-table';
+import { DateRange, LaptopWindows } from '@material-ui/icons';
+import { dark } from '@material-ui/core/styles/createPalette';
 
-export default function MaterialTableDemo(props) {
+export default function AddCat(props) {
+  
   const [state, setState] = React.useState({
     columns: [
-      
-      
-      {  title: 'ID', field: 'id' },
-      
       { title: 'Name', field: 'categories_name' },
       
-
     ],
-    name:'',
-    
+  
     
   });
+  const [data, setData] = useState([]);
+  const [error, setError] = useState([]);
 
+
+  
+          
   return (
-   
-    <MaterialTable
     
-      title="Categories " 
+    <MaterialTable
+        options={{
+            headerStyle: {
+                backgroundColor: 'rgb(211,211,211)',
+                color: 'red',
+                fontWeight : 'bold',
+                
+            },
+            
+        }}
+      title="Categories "
       columns={state.columns}
-      data={props.categories}
+      data= {props.categories}
       editable={{
+       
         onRowAdd: (newData) =>
-          new Promise((resolve) => {
+        
+
+          new Promise((resolve,rejecty)   => {
+            setData([...data,props.categories])
+            console.log("newData =" + newData.categories_name)
             setTimeout(() => {
+              
+              props.onAdd(newData.categories_name,"categories")
+              window.location.reload(false);
               resolve();
-              setState((prevState) => {
-                const data = [...prevState.data];
-                data.push(newData);
-                return { ...prevState, data };
-              });
             }, 600);
+            
+            
           }),
-      
+          
         onRowUpdate: (newData, oldData) =>
           new Promise((resolve) => {
             setTimeout(() => {
               resolve();
-              if (oldData) {
-                setState((prevState) => {
-                  const data = [...prevState.data];
-                  data[data.indexOf(oldData)] = newData;
-                  return { ...prevState, data };
-                });
-              }
+              props.onUpdate(oldData.id,newData.categories_name,"categories")
+              window.location.reload(false);
             }, 600);
           }),
         onRowDelete: (oldData) =>
           new Promise((resolve) => {
             setTimeout(() => {
+              props.onDelete(oldData.id,"categories")
+              window.location.reload(false);
+
               resolve();
-              setState((prevState) => {
-                const data = [...prevState.data];
-                data.splice(data.indexOf(oldData), 1);
-                return { ...prevState, data };
-              });
+             
+              ;
             }, 600);
           }),
       }}
     />
-   
   );
 }

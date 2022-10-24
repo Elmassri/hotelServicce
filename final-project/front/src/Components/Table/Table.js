@@ -53,7 +53,7 @@ export default class TableForm extends React.Component{
         
   return (
 
-    <div className="table_component_main_body">
+    <div className="table_component_main_body" >
      
     
 
@@ -64,6 +64,7 @@ export default class TableForm extends React.Component{
            {/*  <th>#</th> */}
            <th>Order Name</th>
             <th>Order price</th>
+            <th>Order Qty</th>
             <th></th>
             
             
@@ -75,7 +76,7 @@ export default class TableForm extends React.Component{
             return <tr key={index}>
                 <td>{item.name}</td>
                 <td>{item.price}</td>
-                  
+                <td>{item.qty}</td>
                 <td><Button type='delete' color='danger'>delete</Button></td>
               
             </tr>;
