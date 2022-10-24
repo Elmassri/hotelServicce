@@ -1,28 +1,42 @@
 .navItems{
-    display:flex ;
-    justify-items: flex-start;
-    flex-wrap: nowrap;
+    display:grid ;
+    grid-column: 40% 60%;
 }
 
 .catTab{
+    overflow-y: scroll;
     display: flex;
-    flex-flow: row;
+    flex-direction: row;
     flex-wrap: wrap;
-    
-    width: 100%;
-    justify-content: center;
-    align-content: center;
-    background-color: rgb(0,64, 128);
+    width: 400px;
+    height: 656px;
+
+    background-color:#f6f7fb;
     
 }
 #li{
-    color: white;
+    width: 145px;
+    margin: 5px;
+    border: 1px solid white;
+    color: rgb(173, 173, 173);
+    background-color: white;
+    line-height: 90px;
+    border-radius: 10px;
+    font-size: 18px;
     font-weight: bold;
+    text-align: center;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 #li:hover{
-    background-color: rgb(6, 114, 221)
+    background-color: #f6f7fb
+    
+}
+.itemAndCategory{
+    display: grid;
+    grid-template-columns: 40% 60%;
 }
 .mainBody{
     display: grid;
-    grid-template-columns: 70% 30%;
+    grid-template-columns: 50% 50%;
+
 }

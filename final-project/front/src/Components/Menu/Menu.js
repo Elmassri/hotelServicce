@@ -66,7 +66,7 @@ class Menu extends React.Component {
           <Nav tabs key={index} to={`/${item.id}`} >
             
           <NavItem className='navItems'>
-            <NavLink
+            <NavLink 
               id="li"
               className={classnames({ active: this.state.activeTab === item.id })}
               onClick={(e) => {
@@ -99,7 +99,7 @@ class Menu extends React.Component {
             </Route>
             
           </Switch>
-          <TableForm orders={[]}></TableForm>
+          <TableForm className="orderCal"orders={[]}></TableForm>
           </div>
         </div>
         
